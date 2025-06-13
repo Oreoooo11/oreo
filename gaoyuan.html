@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高媛的世界 | Atonement</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#283618', // 深绿色作为主色调
+            secondary: '#BC6C25', // 赭石色作为辅助色
+            accent: '#606C38', // 浅绿色作为强调色
+            neutral: '#FEFAE0', // 米色作为中性色
+            dark: '#1A2421', // 深褐色作为深色背景
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            playfair: ['"Playfair Display"', 'serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .text-shadow-lg {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .bg-blur {
+        backdrop-filter: blur(8px);
+      }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+  
+  <!-- 导入字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="font-inter bg-neutral text-dark overflow-x-hidden">
+  <!-- 花瓣效果容器 -->
+  <div id="petals-container" class="fixed inset-0 pointer-events-none z-0"></div>
+  
+  <!-- 背景图片层 -->
+  <div class="fixed inset-0 z-[-1] opacity-20">
+    <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-10000" 
+         style="background-image: url('https://picsum.photos/id/1028/1920/1080'); opacity: 1;"></div>
+    <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-10000" 
+         style="background-image: url('https://picsum.photos/id/1039/1920/1080'); opacity: 0;"></div>
+  </div>
+  
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center bg-dark/50 bg-blur">
+      <a href="#" class="text-white text-2xl font-playfair font-bold tracking-wider">GY</a>
+      
+      <!-- 桌面导航 -->
+      <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-white hover:text-secondary transition-colors duration-300">首页</a>
+        <a href="#about" class="text-white hover:text-secondary transition-colors duration-300">关于</a>
+        <a href="#gallery" class="text-white hover:text-secondary transition-colors duration-300">相册</a>
+        <a href="#thoughts" class="text-white hover:text-secondary transition-colors duration-300">随笔</a>
+        <a href="#contact" class="text-white hover:text-secondary transition-colors duration-300">联系</a>
+      </div>
+      
+      <!-- 移动端菜单按钮 -->
+      <button class="md:hidden text-white text-2xl" id="menu-toggle">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div class="md:hidden bg-dark/90 bg-blur w-full absolute top-full left-0 transform -translate-y-full transition-transform duration-300 z-50" id="mobile-menu">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <a href="#home" class="text-white hover:text-secondary transition-colors duration-300 py-2">首页</a>
+        <a href="#about" class="text-white hover:text-secondary transition-colors duration-300 py-2">关于</a>
+        <a href="#gallery" class="text-white hover:text-secondary transition-colors duration-300 py-2">相册</a>
+        <a href="#thoughts" class="text-white hover:text-secondary transition-colors duration-300 py-2">随笔</a>
+        <a href="#contact" class="text-white hover:text-secondary transition-colors duration-300 py-2">联系</a>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- 首页部分 -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative">
+    <div class="container mx-auto px-4 py-20 z-10 text-center">
+      <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-playfair font-bold text-white text-shadow-lg leading-tight mb-6">
+        高媛
+      </h1>
+      <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-neutral text-shadow max-w-2xl mx-auto mb-10">
+        像电影《赎罪》中的文字一样，<br>
+        用时光编织属于自己的故事
+      </p>
+      <a href="#about" class="inline-block bg-secondary hover:bg-secondary/80 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+        了解更多
+      </a>
+    </div>
+  </section>
+  
+  <!-- 关于部分 -->
+  <section id="about" class="py-20 bg-dark/70 bg-blur relative">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <div class="relative">
+            <img src="https://picsum.photos/id/1027/800/1000" alt="高媛的照片" class="w-full h-auto rounded-lg shadow-xl">
+            <div class="absolute -bottom-6 -right-6 bg-accent p-4 rounded-lg shadow-lg hidden md:block">
+              <p class="text-white font-playfair italic">
+                "The only thing standing between you and your goal is the story you keep telling yourself as to why you can't achieve it."
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-playfair font-bold text-white mb-6">
+            关于我
+          </h2>
+          <p class="text-neutral mb-6 leading-relaxed">
+            你好，我是高媛。一个热爱生活、喜欢用文字记录点滴的人。
+            电影《赎罪》带给我的不仅是视觉上的享受，更是心灵上的触动。
+            那种对生命的敬畏、对爱情的执着，都深深影响着我。
+          </p>
+          <p class="text-neutral mb-6 leading-relaxed">
+            我相信每个人都有自己独特的故事，而这些故事值得被记录和分享。
+            在这个网站上，我希望能够与你分享我的生活感悟、旅行经历和创作灵感。
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <div class="bg-primary/50 p-4 rounded-lg">
+              <h3 class="text-white font-playfair font-medium mb-2">摄影</h3>
+              <p class="text-neutral/80 text-sm">捕捉生活中的美好瞬间</p>
+            </div>
+            <div class="bg-primary/50 p-4 rounded-lg">
+              <h3 class="text-white font-playfair font-medium mb-2">写作</h3>
+              <p class="text-neutral/80 text-sm">用文字表达内心的情感</p>
+            </div>
+            <div class="bg-primary/50 p-4 rounded-lg">
+              <h3 class="text-white font-playfair font-medium mb-2">旅行</h3>
+              <p class="text-neutral/80 text-sm">探索世界的每一个角落</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 相册部分 -->
+  <section id="gallery" class="py-20 relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-playfair font-bold text-dark mb-12 text-center">
+        我的相册
+      </h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 相册图片 1 -->
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <img src="https://picsum.photos/id/1062/800/600" alt="自然风景照片" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-playfair font-medium text-xl mb-2">宁静时刻</h3>
+            <p class="text-neutral/80 text-sm">在自然中寻找内心的平静</p>
+          </div>
+        </div>
+        
+        <!-- 相册图片 2 -->
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <img src="https://picsum.photos/id/1060/800/600" alt="城市风景照片" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-playfair font-medium text-xl mb-2">城市之光</h3>
+            <p class="text-neutral/80 text-sm">在繁华都市中发现独特之美</p>
+          </div>
+        </div>
+        
+        <!-- 相册图片 3 -->
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <img src="https://picsum.photos/id/1073/800/600" alt="人物照片" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-playfair font-medium text-xl mb-2">瞬间定格</h3>
+            <p class="text-neutral/80 text-sm">每一个表情都有它的故事</p>
+          </div>
+        </div>
+        
+        <!-- 相册图片 4 -->
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <img src="https://picsum.photos/id/1040/800/600" alt="建筑照片" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-playfair font-medium text-xl mb-2">时光印记</h3>
+            <p class="text-neutral/80 text-sm">建筑是凝固的历史</p>
+          </div>
+        </div>
+        
+        <!-- 相册图片 5 -->
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <img src="https://picsum.photos/id/1059/800/600" alt="自然风景照片" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-playfair font-medium text-xl mb-2">山水之间</h3>
+            <p class="text-neutral/80 text-sm">山水有相逢，何处不相逢</p>
+          </div>
+        </div>
+        
+        <!-- 相册图片 6 -->
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <img src="https://picsum.photos/id/1058/800/600" alt="自然风景照片" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <h3 class="text-white font-playfair font-medium text-xl mb-2">光影交错</h3>
+            <p class="text-neutral/80 text-sm">光与影的舞蹈</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="#" class="inline-block border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-8 rounded-full transition-all duration-300">
+          查看更多照片
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 随笔部分 -->
+  <section id="thoughts" class="py-20 bg-dark/70 bg-blur relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-playfair font-bold text-white mb-12 text-center">
+        我的随笔
+      </h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- 随笔文章 1 -->
+        <div class="bg-neutral/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
+          <div class="h-64 overflow-hidden">
+            <img src="https://picsum.photos/id/1015/800/600" alt="关于赎罪的思考" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <span class="text-accent text-sm font-medium">2023年10月15日</span>
+            <h3 class="text-2xl font-playfair font-bold text-white mt-2 mb-4">《赎罪》观后感：时间与记忆的重量</h3>
+            <p class="text-neutral/80 mb-6">
+              当我第一次观看《赎罪》时，我被电影中那种对时间和记忆的深刻描绘所震撼。
+              布里奥妮的错误判断，导致了一段无法挽回的悲剧。这让我思考，在我们的生活中，
+              我们是否也曾经因为自己的偏见或误解，而伤害了我们所爱的人？
+            </p>
+            <a href="#" class="inline-block text-secondary hover:text-secondary/80 font-medium transition-colors duration-300">
+              阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 随笔文章 2 -->
+        <div class="bg-neutral/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
+          <div class="h-64 overflow-hidden">
+            <img src="https://picsum.photos/id/1024/800/600" alt="关于生活的感悟" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <span class="text-accent text-sm font-medium">2023年9月22日</span>
+            <h3 class="text-2xl font-playfair font-bold text-white mt-2 mb-4">生活的诗意：在平凡中发现美好</h3>
+            <p class="text-neutral/80 mb-6">
+              生活并不总是充满戏剧性的转折，更多的时候，它是由无数个平凡的瞬间组成的。
+              就像《赎罪》中描绘的那样，爱情和人性的光辉往往在最平凡的时刻闪耀。
+              我们需要学会在日常生活中发现这些美好，珍惜每一个当下。
+            </p>
+            <a href="#" class="inline-block text-secondary hover:text-secondary/80 font-medium transition-colors duration-300">
+              阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="#" class="inline-block border-2 border-secondary text-secondary hover:bg-secondary hover:text-white font-medium py-3 px-8 rounded-full transition-all duration-300">
+          查看更多随笔
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 联系部分 -->
+  <section id="contact" class="py-20 relative">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-playfair font-bold text-dark mb-6">
+          联系我
+        </h2>
+        <p class="text-dark/80 text-lg">
+          如果你想了解更多关于我的故事，或者有任何问题想要交流，欢迎随时联系我。
+        </p>
+      </div>
+      
+      <div class="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+        <form id="contact-form">
+          <div class="mb-6">
+            <label for="name" class="block text-left text-dark font-medium mb-2">姓名</label>
+            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300" placeholder="请输入你的姓名">
+          </div>
+          
+          <div class="mb-6">
+            <label for="email" class="block text-left text-dark font-medium mb-2">邮箱</label>
+            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300" placeholder="请输入你的邮箱">
+          </div>
+          
+          <div class="mb-6">
+            <label for="message" class="block text-left text-dark font-medium mb-2">留言</label>
+            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300" placeholder="请输入你的留言"></textarea>
+          </div>
+          
+          <button type="submit" class="w-full bg-primary hover:bg-primary/80 text-white font-medium py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+            发送留言
+          </button>
+        </form>
+      </div>
+      
+      <div class="flex justify-center mt-12 space-x-6">
+        <a href="#" class="text-dark hover:text-primary transition-colors duration-300 text-2xl">
+          <i class="fa fa-weixin"></i>
+        </a>
+        <a href="#" class="text-dark hover:text-primary transition-colors duration-300 text-2xl">
+          <i class="fa fa-weibo"></i>
+        </a>
+        <a href="#" class="text-dark hover:text-primary transition-colors duration-300 text-2xl">
+          <i class="fa fa-instagram"></i>
+        </a>
+        <a href="#" class="text-dark hover:text-primary transition-colors duration-300 text-2xl">
+          <i class="fa fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 页脚 -->
+  <footer class="bg-dark py-12 text-center text-neutral/60">
+    <div class="container mx-auto px-4">
+      <p class="mb-4">© 2023 高媛的世界. 保留所有权利.</p>
+      <p>设计灵感来自电影《赎罪》</p>
+    </div>
+  </footer>
+  
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/80">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+  
+  <!-- JavaScript -->
+  <script>
+    // 背景图片切换
+    function switchBackgroundImages() {
+      const bgImages = document.querySelectorAll('.fixed.inset-0.z-\\[-1\\] > div');
+      bgImages.forEach(img => {
+        img.style.opacity = img.style.opacity === '1' ? '0' : '1';
+      });
+    }
+    
+    // 设置背景图片切换定时器
+    setInterval(switchBackgroundImages, 10000);
+    
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-dark/80');
+        navbar.classList.add('shadow-lg');
+      } else {
+        navbar.classList.remove('bg-dark/80');
+        navbar.classList.remove('shadow-lg');
+      }
+    });
+    
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('-translate-y-full')) {
+        mobileMenu.classList.remove('-translate-y-full');
+        mobileMenu.classList.add('translate-y-0');
+        menuToggle.innerHTML = '<i class="fa fa-times"></i>';
+      } else {
+        mobileMenu.classList.add('-translate-y-full');
+        mobileMenu.classList.remove('translate-y-0');
+        menuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          // 如果是移动设备且菜单是打开的，先关闭菜单
+          if (mobileMenu.classList.contains('translate-y-0')) {
+            mobileMenu.classList.add('-translate-y-full');
+            mobileMenu.classList.remove('translate-y-0');
+            menuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+          }
+          
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 返回顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.add('opacity-0', 'invisible');
+        backToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 花瓣飘落效果
+    function createPetal() {
+      const container = document.getElementById('petals-container');
+      const petal = document.createElement('div');
+      
+      // 随机花瓣样式
+      const petalTypes = ['petal1', 'petal2', 'petal3'];
+      const petalType = petalTypes[Math.floor(Math.random() * petalTypes.length)];
+      
+      // 随机位置、大小和透明度
+      const left = Math.random() * 100;
+      const size = Math.random() * 15 + 5;
+      const opacity = Math.random() * 0.5 + 0.3;
+      
+      // 随机动画持续时间
+      const duration = Math.random() * 15 + 10;
+      
+      // 设置花瓣样式
+      petal.className = `absolute ${petalType}`;
+      petal.style.left = `${left}%`;
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size}px`;
+      petal.style.opacity = opacity;
+      petal.style.animation = `fall ${duration}s linear infinite`;
+      
+      // 添加到容器
+      container.appendChild(petal);
+      
+      // 移除超出屏幕的花瓣
+      setTimeout(() => {
+        petal.remove();
+      }, duration * 1000);
+    }
+    
+    // 创建花瓣CSS动画
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fall {
+        0% {
+          transform: translateY(-10vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      
+      .petal1 {
+        background-color: #BC6C25;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      }
+      
+      .petal2 {
+        background-color: #DDA15E;
+        clip-path: circle(50% at 50% 50%);
+      }
+      
+      .petal3 {
+        background-color: #606C38;
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // 定时创建花瓣
+    setInterval(createPetal, 300);
+    
+    // 表单提交处理
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // 这里可以添加表单验证和提交逻辑
+      alert('留言已发送，感谢您的联系！');
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
